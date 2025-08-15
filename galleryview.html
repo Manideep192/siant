@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gallery View</title>
+  <style>
+    body { background: #111; color: #fff; font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+    .gallery-container { max-width: 600px; margin: 20px auto; background: #222; border-radius: 10px; padding: 20px; }
+    .gallery-image { width: 100%; height: auto; border-radius: 10px; }
+    .caption { margin-top: 10px; font-size: 16px; color: #ccc; }
+    .view-link { display: block; margin-top: 10px; color: #00d1ff; text-decoration: none; }
+    .view-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h2 id="galleryTitle">Loading...</h2>
+  <div class="gallery-container">
+    <img id="galleryImage" class="gallery-image" src="" alt="Slideshow Image">
+    <div id="caption" class="caption"></div>
+    <a id="fullLink" class="view-link" href="#" target="_blank">🔍 View Full Image</a>
+  </div>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const galleryId = params.get('gallery');
+    const galleryTitle = document.getElementById("galleryTitle");
+    const galleryImage = document.getElementById("galleryImage");
+    const caption = document.getElementById("caption");
+    const fullLink = document.getElementById("fullLink");
+
+    const galleries = {
+      "1": {
+        title: "Babuji Birthday Celebrations - 2019",
+        thumbs: ["shortimage-gallery1/thumb1.jpg", "shortimage-gallery1/thumb2.jpg", "shortimage-gallery1/thumb3.jpg", "shortimage-gallery1/thumb4.jpg", "shortimage-gallery1/thumb5.jpg", "shortimage-gallery1/thumb6.jpg", "shortimage-gallery1/thumb7.jpg", "shortimage-gallery1/thumb8.jpg", "shortimage-gallery1/thumb9.jpg", "shortimage-gallery1/thumb10.jpg"],
+        fulls: ["bigimage-gallery1/full1.jpg", "bigimage-gallery1/full2.jpg", "bigimage-gallery1/full3.jpg", "bigimage-gallery1/full4.jpg", "bigimage-gallery1/full5.jpg", "bigimage-gallery1/full6.jpg", "bigimage-gallery1/full7.jpg", "bigimage-gallery1/full8.jpg", "bigimage-gallery1/full9.jpg", "bigimage-gallery1/full10.jpg"],
+        captions: ["1. During function", "2. During function", "3. During function", "4. Satsang", "5. During function", "6. During function", "7. During function", "8. During function", "9. During function", "10. During function"]
+      },
+      "2": {
+        title: "Founders Day Celebrations-2018",
+        thumbs: ["shortimage-gallery2/thumb1.jpg", "shortimage-gallery2/thumb2.jpg", "shortimage-gallery2/thumb3.jpg", "shortimage-gallery2/thumb4.jpg", "shortimage-gallery2/thumb5.jpg", "shortimage-gallery2/thumb6.jpg", "shortimage-gallery2/thumb7.jpg", "shortimage-gallery2/thumb8.jpg", "shortimage-gallery2/thumb9.jpg", "shortimage-gallery2/thumb10.jpg", "shortimage-gallery2/thumb11.jpg", "shortimage-gallery2/thumb12.jpg", "shortimage-gallery2/thumb13.jpg", "shortimage-gallery2/thumb14.jpg", "shortimage-gallery2/thumb15.jpg", "shortimage-gallery2/thumb16.jpg"],
+        fulls: ["bigimage-gallery2/full1.jpg", "bigimage-gallery2/full2.jpg", "bigimage-gallery2/full3.jpg", "bigimage-gallery2/full4.jpg", "bigimage-gallery2/full5.jpg", "bigimage-gallery2/full6.jpg", "bigimage-gallery2/full7.jpg", "bigimage-gallery2/full8.jpg", "bigimage-gallery2/full9.jpg", "bigimage-gallery2/full10.jpg", "bigimage-gallery2/full11.jpg", "bigimage-gallery2/full12.jpg", "bigimage-gallery2/full13.jpg", "bigimage-gallery2/full14.jpg", "bigimage-gallery2/full15.jpg", "bigimage-gallery2/full16.jpg"],
+        captions: ["Satsang", "Satsang", "Satsang", "Satsang", "Satsang", "Satsang", "Satsang" ,"During Function","During Function","During Function","During Function","During Function","During Function","During Function","During Function","During Satsang"]
+       
+      }
+      ,
+
+      "3": {
+        title: "Babuji Birthday Celebrations - 2018",
+        thumbs: ["shortimage-gallery3/thumb1.jpg", "shortimage-gallery3/thumb2.jpg", "shortimage-gallery3/thumb3.jpg", "shortimage-gallery3/thumb4.jpg", "shortimage-gallery3/thumb5.jpg", "shortimage-gallery3/thumb6.jpg", "shortimage-gallery3/thumb7.jpg", "shortimage-gallery3/thumb8.jpg", "shortimage-gallery3/thumb9.jpg", "shortimage-gallery3/thumb10.jpg", "shortimage-gallery3/thumb11.jpg", "shortimage-gallery3/thumb12.jpg", "shortimage-gallery3/thumb13.jpg", "shortimage-gallery3/thumb14.jpg", "shortimage-gallery3/thumb15.jpg", "shortimage-gallery3/thumb16.jpg", "shortimage-gallery3/thumb17.jpg", "shortimage-gallery3/thumb18.jpg", "shortimage-gallery3/thumb19.jpg", "shortimage-gallery3/thumb20.jpg", "shortimage-gallery3/thumb21.jpg", "shortimage-gallery3/thumb22.jpg"],
+        fulls: ["bigimage-gallery3/full1.jpg", "bigimage-gallery3/full2.jpg", "bigimage-gallery3/full3.jpg", "bigimage-gallery3/full4.jpg", "bigimage-gallery3/full5.jpg", "bigimage-gallery3/full6.jpg", "bigimage-gallery3/full7.jpg", "bigimage-gallery3/full8.jpg", "bigimage-gallery3/full9.jpg", "bigimage-gallery3/full10.jpg", "bigimage-gallery3/full11.jpg", "bigimage-gallery3/full12.jpg", "bigimage-gallery3/full13.jpg", "bigimage-gallery3/full14.jpg", "bigimage-gallery3/full15.jpg", "bigimage-gallery3/full16.jpg", "bigimage-gallery3/full17.jpg", "bigimage-galler3/full18.jpg", "bigimage-gallery3/full19.jpg", "bigimage-gallery3/full20.jpg", "bigimage-gallery3/full21.jpg", "bigimage-gallery3/full22.jpg"],
+        captions: ["Gallery Cover","Function Start", "1.Satsang", "2.Satsang", "3.Satsang", "4.Satsang", "5.Satsang","1.During Function", "6.Satsang" ,"2.During Function","3.During Function","4.During Function","5.During Function","6.During Function","7.During Function","8.During Function","9.During Function","10.During Satsang","11.During Satsang","12.During Satsang","13.During Satsang","14.During Satsang"]
+       
+      }
+
+       ,
+
+      "4": {
+        title: "Babuji Birthday Celebrations - 2017",
+        thumbs: ["shortimage-gallery4/thumb1.jpg", "shortimage-gallery4/thumb2.jpg", "shortimage-gallery4/thumb3.jpg", "shortimage-gallery4/thumb4.jpg", "shortimage-gallery4/thumb5.jpg", "shortimage-gallery4/thumb6.jpg", "shortimage-gallery4/thumb7.jpg", "shortimage-gallery4/thumb8.jpg", "shortimage-gallery4/thumb9.jpg", "shortimage-gallery4/thumb10.jpg", "shortimage-gallery4/thumb11.jpg", "shortimage-gallery4/thumb12.jpg", "shortimage-gallery4/thumb13.jpg"],
+        fulls: ["bigimage-gallery4/full1.jpg", "bigimage-gallery4/full2.jpg", "bigimage-gallery4/full3.jpg", "bigimage-gallery4/full4.jpg", "bigimage-gallery4/full5.jpg", "bigimage-gallery4/full6.jpg", "bigimage-gallery4/full7.jpg", "bigimage-gallery4/full8.jpg", "bigimage-gallery4/full9.jpg", "bigimage-gallery4/full10.jpg", "bigimage-gallery4/full11.jpg", "bigimage-gallery4/full12.jpg", "bigimage-gallery4/full13.jpg"],
+        captions: ["1.Satsang", "2.Satsang", "1.During Function","3.Satsang", "4.Satsang","2.During Function","3.During Function","4.During Function","5.During Function","6.During Function","7.During Function","8.During Function","9.During Function",]
+       
+      }
+
+  
+
+      ,
+
+      "5": {
+        title: "Basanth Birthday Celebrations, - 2013",
+        thumbs: ["shortimage-gallery5/thumb1.jpg", "shortimage-gallery5/thumb2.jpg", "shortimage-gallery5/thumb3.jpg", "shortimage-gallery5/thumb4.jpg", "shortimage-gallery5/thumb5.jpg","shortimage-gallery5/thumb6.jpg", "shortimage-gallery5/thumb7.jpg", "shortimage-gallery5/thumb8.jpg", "shortimage-gallery5/thumb9.jpg", "shortimage-gallery5/thumb10.jpg","shortimage-gallery5/thumb11.jpg", "shortimage-gallery5/thumb12.jpg", "shortimage-gallery5/thumb13.jpg", "shortimage-gallery5/thumb14.jpg", "shortimage-gallery5/thumb15.jpg","shortimage-gallery5/thumb16.jpg", "shortimage-gallery5/thumb16.jpg", "shortimage-gallery5/thumb18.jpg", "shortimage-gallery5/thumb19.jpg", "shortimage-gallery5/thumb20.jpg","shortimage-gallery5/thumb21.jpg", "shortimage-gallery5/thumb22.jpg", "shortimage-gallery5/thumb23.jpg", "shortimage-gallery5/thumb24.jpg", "shortimage-gallery5/thumb25.jpg","shortimage-gallery5/thumb26.jpg", "shortimage-gallery5/thumb27.jpg", "shortimage-gallery5/thumb28.jpg", "shortimage-gallery5/thumb29.jpg", "shortimage-gallery5/thumb30.jpg","shortimage-gallery5/thumb31.jpg", "shortimage-gallery5/thumb32.jpg", "shortimage-gallery5/thumb33.jpg", "shortimage-gallery5/thumb34.jpg", "shortimage-gallery5/thumb35.jpg","shortimage-gallery5/thumb36.jpg", "shortimage-gallery5/thumb37.jpg", "shortimage-gallery5/thumb38.jpg", "shortimage-gallery5/thumb39.jpg", "shortimage-gallery5/thumb40.jpg","shortimage-gallery5/thumb41.jpg", "shortimage-gallery5/thumb42.jpg", "shortimage-gallery5/thumb43.jpg", "shortimage-gallery5/thumb44.jpg", "shortimage-gallery5/thumb45.jpg","shortimage-gallery5/thumb46.jpg", "shortimage-gallery5/thumb47.jpg", "shortimage-gallery5/thumb48.jpg", "shortimage-gallery5/thumb49.jpg", "shortimage-gallery5/thumb50.jpg", "shortimage-gallery5/thumb51.jpg", "shortimage-gallery5/thumb52.jpg", "shortimage-gallery5/thumb53.jpg"],
+        fulls: ["bigimage-gallery5/full1.jpg", "bigimage-gallery5/full2.jpg", "bigimage-gallery5/full3.jpg", "bigimage-gallery5/full4.jpg", "bigimage-gallery5/full5.jpg","bigimage-gallery5/full6.jpg", "bigimage-gallery5/full7.jpg", "bigimage-gallery5/full8.jpg", "bigimage-gallery5/full9.jpg", "bigimage-gallery5/full10.jpg","bigimage-gallery5/full11.jpg", "bigimage-gallery5/full12.jpg", "bigimage-gallery5/full13.jpg", "bigimage-gallery5/full14.jpg", "bigimage-gallery5/full15.jpg","bigimage-gallery5/full16.jpg", "bigimage-gallery5/full17.jpg", "bigimage-gallery5/full18.jpg", "bigimage-gallery5/full19.jpg", "bigimage-gallery5/full20.jpg","bigimage-gallery5/full21.jpg", "bigimage-gallery5/full22.jpg", "bigimage-gallery5/full23.jpg", "bigimage-gallery5/full24.jpg", "bigimage-gallery5/full25.jpg","bigimage-gallery5/full26.jpg", "bigimage-gallery5/full27.jpg", "bigimage-gallery5/full28.jpg", "bigimage-gallery5/full29.jpg", "bigimage-gallery5/full30.jpg","bigimage-gallery5/full31.jpg", "bigimage-gallery5/full32.jpg", "bigimage-gallery5/full33.jpg", "bigimage-gallery5/full34.jpg", "bigimage-gallery5/full35.jpg","bigimage-gallery5/full36.jpg", "bigimage-gallery5/full37.jpg", "bigimage-gallery5/full38.jpg", "bigimage-gallery5/full39.jpg", "bigimage-gallery5/full40.jpg","bigimage-gallery5/full41.jpg", "bigimage-gallery5/full42.jpg", "bigimage-gallery5/full43.jpg", "bigimage-gallery5/full44.jpg", "bigimage-gallery5/full45.jpg","bigimage-gallery5/full46.jpg", "bigimage-gallery5/full47.jpg", "bigimage-gallery5/full48.jpg", "bigimage-gallery5/full49.jpg", "bigimage-gallery5/full50.jpg","bigimage-gallery5/full51.jpg", "bigimage-gallery5/full52.jpg", "bigimage-gallery5/full53.jpg", "bigimage-gallery5/full54.jpg", "bigimage-gallery5/full55.jpg"],
+        captions: ["Poster","Welcome","1.During Function","2.During Function","Geet","Geet","3.During Function","4.During Function","Geet","5.During Function","6.During Function","7.During Function","Prayer","8.During Function","Geet","9.During Function","10.During Function","11.During Function","12.During Function","13.During Function",,"Satsang","Satsang","Satsang","14.During Function","Lunch","15.During Function","16.During Function","17.During Function",,"18.During Function","19.During Function","20.During Function",,"21.During Function","22.During Function","23.During Function","Lunch","Lunch","Lunch","Lunch","Lunch","Book-stall",,"24.During Function","25.During Function","26.During Function","27.During Function","28.During Function",]
+       
+      }
+
+      ,
+
+      "6": {
+        title: "Founder’s Day and Saint Kasturi Birthday Celebrations - 2012",
+        thumbs: ["shortimage-gallery6/thumb1.jpg", "shortimage-gallery6/thumb2.jpg", "shortimage-gallery6/thumb3.jpg", "shortimage-gallery6/thumb4.jpg", "shortimage-gallery6/thumb5.jpg","shortimage-gallery6/thumb6.jpg","shortimage-gallery6/thumb7.jpg","shortimage-gallery6/thumb8.jpg"],
+        fulls: ["bigimage-gallery6/full1.jpg", "bigimage-gallery6/full2.jpg", "bigimage-gallery6/full3.jpg", "bigimage-gallery6/full4.jpg","bigimage-gallery6/full5.jpg","bigimage-gallery6/full6.jpg","bigimage-gallery6/full7.jpg","bigimage-gallery6/full8.jpg"],
+        captions: ["Poster","Welcome","1.During Function","2.During Function","3.During Function","4.During Function","5.During Function","6.During Function"]
+       
+      }
+
+      ,
+
+      "7": {
+        title: "Saint Kasturi Birthday Celebrations - 2015",
+        thumbs: ["shortimage-gallery7/thumb1.jpg", "shortimage-gallery7/thumb2.jpg", "shortimage-gallery7/thumb3.jpg", "shortimage-gallery7/thumb4.jpg", "shortimage-gallery7/thumb5.jpg","shortimage-gallery7/thumb6.jpg","shortimage-gallery7/thumb7.jpg", "shortimage-gallery7/thumb8.jpg", "shortimage-gallery7/thumb9.jpg", "shortimage-gallery7/thumb10.jpg", "shortimage-gallery7/thumb11.jpg","shortimage-gallery7/thumb12.jpg","shortimage-gallery7/thumb13.jpg", "shortimage-gallery7/thumb14.jpg", "shortimage-gallery7/thumb15.jpg", "shortimage-gallery7/thumb16.jpg", "shortimage-gallery7/thumb17.jpg","shortimage-gallery7/thumb18.jpg","shortimage-gallery7/thumb19.jpg", "shortimage-gallery7/thumb20.jpg", "shortimage-gallery7/thumb21.jpg", "shortimage-gallery7/thumb22.jpg", "shortimage-gallery7/thumb23.jpg","shortimage-gallery7/thumb24.jpg","shortimage-gallery7/thumb25.jpg", "shortimage-gallery7/thumb26.jpg", "shortimage-gallery7/thumb27.jpg", "shortimage-gallery7/thumb28.jpg", "shortimage-gallery7/thumb29.jpg","shortimage-gallery7/thumb30.jpg","shortimage-gallery7/thumb31.jpg", "shortimage-gallery7/thumb32.jpg", "shortimage-gallery7/thumb33.jpg", "shortimage-gallery7/thumb34.jpg", "shortimage-gallery7/thumb35.jpg","shortimage-gallery7/thumb36.jpg","shortimage-gallery7/thumb37.jpg", "shortimage-gallery7/thumb38.jpg", "shortimage-gallery7/thumb39.jpg", "shortimage-gallery7/thumb40.jpg", "shortimage-gallery7/thumb41.jpg","shortimage-gallery7/thumb42.jpg","shortimage-gallery7/thumb43.jpg"],
+        fulls: ["bigimage-gallery7/full1.jpg", "bigimage-gallery7/full2.jpg", "bigimage-gallery7/full3.jpg", "bigimage-gallery7/full4.jpg", "bigimage-gallery7/full5.jpg","bigimage-gallery7/full6.jpg","bigimage-gallery7/full7.jpg", "bigimage-gallery7/full8.jpg", "bigimage-gallery7/full9.jpg", "bigimage-gallery7/full10.jpg", "bigimage-gallery7/full11.jpg","bigimage-gallery7/full2.jpg","bigimage-gallery7/full13.jpg", "bigimage-gallery7/full14.jpg", "bigimage-gallery7/full15.jpg", "bigimage-gallery7/full15.jpg", "bigimage-gallery7/full16.jpg","bigimage-gallery7/full17.jpg","bigimage-gallery7/full18.jpg", "bigimage-gallery7/full19.jpg", "bigimage-gallery7/full20.jpg", "bigimage-gallery7/full21.jpg", "bigimage-gallery7/full22.jpg","bigimage-gallery7/full23.jpg","bigimage-gallery7/full24.jpg", "bigimage-gallery7/full25.jpg", "bigimage-gallery7/full27.jpg", "bigimage-gallery7/full28.jpg", "bigimage-gallery7/full29.jpg","bigimage-gallery7/full30.jpg","bigimage-gallery7/full31.jpg", "bigimage-gallery7/full32.jpg", "bigimage-gallery7/full33.jpg", "bigimage-gallery7/full34.jpg", "bigimage-gallery7/full35.jpg","bigimage-gallery7/full36.jpg","bigimage-gallery7/full37.jpg", "bigimage-gallery7/full38.jpg", "bigimage-gallery7/full39.jpg", "bigimage-gallery7/full40.jpg", "bigimage-gallery7/full41.jpg","bigimage-gallery7/full42.jpg","bigimage-gallery7/full43.jpg"],
+        captions: ["Welcome","1.During Function","2.During Function","3.During Function","4.During Function","5.During Function","6.During Function","7.During Function","8.During Function","9.During Function","10.During Function","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","11.During Function","Satsang","Satsang","12.During Function","Satsang","Satsang",,"Satsang","Satsang","13.During Function","14.During Function","15.During Function","16.During Function","17.During Function","18.During Function","19.During Function","20.During Function","21.During Function","22.During Function","23.During Function","24.During Function","25.During Function"]
+       
+      }
+
+      ,
+
+      "8": {
+        title: "Babuji Birthday Celebrations - 2015",
+        thumbs: ["shortimage-gallery8/thumbab.jpg", "shortimage-gallery8/thumb2.jpg", "shortimage-gallery8/thumb3.jpg", "shortimage-gallery8/thumb4.jpg", "shortimage-gallery8/thumb5.jpg","shortimage-gallery8/thumb6.jpg","shortimage-gallery8/thumb8.jpg", "shortimage-gallery8/thumb8.jpg", "shortimage-gallery8/thumb9.jpg", "shortimage-gallery8/thumb10.jpg", "shortimage-gallery8/thumb11.jpg","shortimage-gallery8/thumb12.jpg","shortimage-gallery8/thumb13.jpg", "shortimage-gallery8/thumb14.jpg", "shortimage-gallery8/thumb15.jpg", "shortimage-gallery8/thumb16.jpg", "shortimage-gallery8/thumb18.jpg","shortimage-gallery8/thumb18.jpg","shortimage-gallery8/thumb19.jpg", "shortimage-gallery8/thumb20.jpg", "shortimage-gallery8/thumb21.jpg", "shortimage-gallery8/thumb22.jpg", "shortimage-gallery8/thumb23.jpg","shortimage-gallery8/thumb24.jpg","shortimage-gallery8/thumb25.jpg", "shortimage-gallery8/thumb26.jpg", "shortimage-gallery8/thumb28.jpg", "shortimage-gallery8/thumb28.jpg", "shortimage-gallery8/thumb29.jpg","shortimage-gallery8/thumb30.jpg","shortimage-gallery8/thumb31.jpg", "shortimage-gallery8/thumb32.jpg", "shortimage-gallery8/thumb33.jpg", "shortimage-gallery8/thumb34.jpg", "shortimage-gallery8/thumb35.jpg","shortimage-gallery8/thumb36.jpg","shortimage-gallery8/thumb38.jpg", "shortimage-gallery8/thumb38.jpg", "shortimage-gallery8/thumb39.jpg", "shortimage-gallery8/thumb40.jpg", "shortimage-gallery8/thumb41.jpg","shortimage-gallery8/thumb42.jpg","shortimage-gallery8/thumb43.jpg"],
+        fulls: ["bigimage-gallery8/full1.jpg", "bigimage-gallery8/full2.jpg", "bigimage-gallery8/full3.jpg", "bigimage-gallery8/full4.jpg", "bigimage-gallery8/full5.jpg","bigimage-gallery8/full6.jpg","bigimage-gallery8/full8.jpg", "bigimage-gallery8/full8.jpg", "bigimage-gallery8/full9.jpg", "bigimage-gallery8/full10.jpg", "bigimage-gallery8/full11.jpg","bigimage-gallery8/full2.jpg","bigimage-gallery8/full13.jpg", "bigimage-gallery8/full14.jpg", "bigimage-gallery8/full15.jpg", "bigimage-gallery8/full15.jpg", "bigimage-gallery8/full16.jpg","bigimage-gallery8/full18.jpg","bigimage-gallery8/full18.jpg", "bigimage-gallery8/full19.jpg", "bigimage-gallery8/full20.jpg", "bigimage-gallery8/full21.jpg", "bigimage-gallery8/full22.jpg","bigimage-gallery8/full23.jpg","bigimage-gallery8/full24.jpg", "bigimage-gallery8/full25.jpg", "bigimage-gallery8/full28.jpg", "bigimage-gallery8/full28.jpg", "bigimage-gallery8/full29.jpg","bigimage-gallery8/full30.jpg","bigimage-gallery8/full31.jpg", "bigimage-gallery8/full32.jpg", "bigimage-gallery8/full33.jpg", "bigimage-gallery8/full34.jpg", "bigimage-gallery8/full35.jpg","bigimage-gallery8/full36.jpg","bigimage-gallery8/full38.jpg", "bigimage-gallery8/full38.jpg", "bigimage-gallery8/full39.jpg", "bigimage-gallery8/full40.jpg", "bigimage-gallery8/full41.jpg","bigimage-gallery8/full42.jpg","bigimage-gallery8/full43.jpg"],
+        captions: ["Poster","Welcome","Programme","1.During Function","2.During Function","3.During Function","4.During Function","5.During Function","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","6.During Function","7.During Function","8.During Function","9.During Function","10.During Function","11.During Function","12.During Function","13.During Function","14.During Function","15.During Function","16.During Function","17.During Function","18.During Function","19.During Function","20.During Function","21.During Function","22.During Function","23.During Function","24.During Function","25.During Function","26.During Function","27.During Function","28.During Function","29.During Function","30.During Function","31.During Function"]
+       
+      }
+
+      ,
+
+      "9": {
+        title: "Babuji Birthday Celebrations - 2014",
+        thumbs: ["shortimage-gallery9/1.Babuji-Birthday.jpg", "shortimage-gallery9/2.Programme.jpg", "shortimage-gallery9/3.Lalaji-Babuji-Kasturiji.jpg", "shortimage-gallery9/4.Satsang.jpg", "shortimage-gallery9/5.Satsang.jpg","shortimage-gallery9/6.Satsang.jpg","shortimage-gallery9/7.Satsang.jpg", "shortimage-gallery9/8.Satsang.jpg", "shortimage-gallery9/9.Satsang.jpg", "shortimage-gallery9/10.Satsang_bp2014.jpg", "shortimage-gallery9/11.Satsang.jpg","shortimage-gallery9/12.Bahenji-Message-on-Sahaj-Marg-Birday-Begins.jpg","shortimage-gallery9/13.Bade-Bhayya-Geeth.jpg", "shortimage-gallery9/14.Message-from-Bade-Bhayya.jpg", "shortimage-gallery9/15.During-Function.jpg", "shortimage-gallery9/16.During-Function.jpg", "shortimage-gallery9/17.During-Function.jpg","shortimage-gallery9/18.During-Function.jpg","shortimage-gallery9/18.During-Function_bp2014.jpg", "shortimage-gallery9/19.During-Function.jpg", "shortimage-gallery9/20.During-Function.jpg", "shortimage-gallery9/21.During-Function.jpg", "shortimage-gallery9/22.During-Function.jpg","shortimage-gallery9/23.During-Function.jpg","shortimage-gallery9/23.During-Function_bp2014.jpg", "shortimage-gallery9/thumb26.jpg", "shortimage-gallery9/24.During-Function.jpg", "shortimage-gallery9/25.During-Function.jpg", "shortimage-gallery9/25.During-Function_bp2014.jpg","shortimage-gallery9/26.During-Function.jpg","shortimage-gallery9/26.During-Function_bp2014.jpg", "shortimage-gallery9/27.During-Function.jpg", "shortimage-gallery9/28.During-Function.jpg",],
+        fulls: ["bigimage-gallery9/1.Babuji-Birthday.jpg", "bigimage-gallery9/2.Programme.jpg", "bigimage-gallery9/3.Lalaji-Babuji-Kasturiji.jpg", "bigimage-gallery9/4.Satsang.jpg", "bigimage-gallery9/5.Satsang.jpg","bigimage-gallery9/6.Satsang.jpg","bigimage-gallery9/7.Satsang.jpg", "bigimage-gallery9/8.Satsang.jpg", "bigimage-gallery9/9.Satsang.jpg", "bigimage-gallery9/10.Satsang_bp2014.jpg","bigimage-gallery9/11.Satsang.jpg","bigimage-gallery9/12.Bahenji-Message-on-Sahaj-Marg-Birday-Begins.jpg","bigimage-gallery9/13.Bade-Bhayya-Geeth.jpg","bigimage-gallery9/14.Message-from-Bade-Bhayya.jpg","bigimage-gallery9/15.During-Function.jpg","bigimage-gallery9/16.During-Function.jpg", "bigimage-gallery9/17.During-Function.jpg","bigimage-gallery9/18.During-Function.jpg","bigimage-gallery9/18.During-Function_bp2014.jpg", "bigimage-gallery9/19.During-Function.jpg", "bigimage-gallery9/20.During-Function.jpg", "bigimage-gallery9/21.During-Function.jpg", "bigimage-gallery9/22.During-Function.jpg","bigimage-gallery9/23.During-Function.jpg","bigimage-gallery9/23.During-Function_bp2014.jpg", "bigimage-gallery9/thumb26.jpg", "bigimage-gallery9/24.During-Function.jpg", "bigimage-gallery9/25.During-Function.jpg", "bigimage-gallery9/25.During-Function_bp2014.jpg","bigimage-gallery9/26.During-Function.jpg","bigimage-gallery9/26.During-Function_bp2014.jpg", "bigimage-gallery9/27.During-Function.jpg", "bigimage-gallery9/28.During-Function.jpg",],
+        captions: ["Babuji-Birthday","Programme","Lalaji-Babuji-Kasturiji","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","Satsang","Bahenji-Message-on-Sahaj-Marg-Birday-Begins","Bade-Bhayya-Geeth","Message-from-Bade-Bhayya","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function","During-Function"]
+       
+      }
+
+       ,
+
+      "10": {
+        title: "Babuji Birthday Celebrations - 2016",
+        thumbs: ["shortimage-gallery10/1.babubday.jpg", "shortimage-gallery10/2.babubday.jpg", "shortimage-gallery10/10.babubday.jpg", "shortimage-gallery10/4.babubday.jpg", "shortimage-gallery10/5.babubday.jpg", "shortimage-gallery10/6.babubday.jpg", "shortimage-gallery10/7.babubday.jpg", "shortimage-gallery10/8.babubday.jpg", "shortimage-gallery10/9.babubday.jpg", "shortimage-gallery10/10.babubday.jpg", "shortimage-gallery10/11.babubday.jpg", "shortimage-gallery10/12.babubday.jpg", "shortimage-gallery10/110.babubday.jpg", "shortimage-gallery10/14.During-Function.jpg", "shortimage-gallery10/15.babubday.jpg", "shortimage-gallery10/16.babubday.jpg", "shortimage-gallery10/17.babubday.jpg", "shortimage-gallery10/14.During-Function.jpg"],
+        fulls: ["bigimage-gallery10/1.babubday.jpg", "bigimage-gallery10/2.babubday.jpg", "bigimage-gallery10/10.babubday.jpg", "bigimage-gallery10/4.babubday.jpg", "bigimage-gallery10/5.babubday.jpg", "bigimage-gallery10/6.babubday.jpg", "bigimage-gallery10/7.babubday.jpg", "bigimage-gallery10/8.babubday.jpg", "bigimage-gallery10/9.babubday.jpg", "bigimage-gallery10/10.babubday.jpg", "bigimage-gallery10/11.babubday.jpg", "bigimage-gallery10/12.babubday.jpg", "bigimage-gallery10/110.babubday.jpg", "bigimage-gallery10/14.During-Function.jpg", "bigimage-gallery10/15.babubday.jpg", "bigimage-gallery10/16.babubday.jpg", "bigimage-gallery10/17.babubday.jpg", "bigimage-gallery10/14.During-Function.jpg"],
+        captions: ["babubday","babubday","babubday","babubday","babubday","babubday","babubday","babubday","babubday","babubday","babubday","babubday","babubday","During-Function","babubday","babubday","babubday"]
+       
+      }
+      
+      
+      
+     
+    };
+
+    let index = 0;
+    function showSlide(gallery) {
+      galleryImage.src = gallery.thumbs[index];
+      fullLink.href = gallery.fulls[index];
+      caption.textContent = gallery.captions[index];
+      index = (index + 1) % gallery.thumbs.length;
+    }
+
+    if (galleries[galleryId]) {
+      const selectedGallery = galleries[galleryId];
+      galleryTitle.innerText = selectedGallery.title;
+      showSlide(selectedGallery);
+      setInterval(() => showSlide(selectedGallery), 3000);
+    } else {
+      galleryTitle.innerText = "Gallery not found!";
+    }
+  </script>
+</body>
+</html>

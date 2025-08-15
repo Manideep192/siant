@@ -1,0 +1,10 @@
+ren full1.jpeg full1.jpg
+ren full2.jpeg full2.jpg
+ren full3.jpeg full3.jpg
+ren full4.jpeg full4.jpg
+ren full5.jpeg full5.jpg
+ren full6.jpeg full6.jpg
+ren full7.jpeg full7.jpg
+ren full8.jpeg full8.jpg
+ren full9.jpeg full9.jpg
+ren full10.jpeg full10.jpg
